@@ -2,7 +2,8 @@
 name = "bin_eye_bt_receiver"
 version = "0.1.0"
 edition = "2021"
-
+license = "MIT"
+description = "A Quick and Dirty receiver app for Binary Eye's Forward scan via Bluetooth functionality Written in Rust."
 # See more keys and their definitions at https://doc.rust-lang.org/cargo/reference/manifest.html
 
 [dependencies]

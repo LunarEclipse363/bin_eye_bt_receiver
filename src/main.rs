@@ -24,12 +24,8 @@ async fn main() -> bluer::Result<()> {
     let args = Args::parse();
     let my_uuid: uuid::Uuid = bluer::Uuid::parse_str(&args.uuid).unwrap();
     println!("{}", my_uuid.urn());
-    if args.keyboard {
-        println!("bang")
-    }
     let mut enigo = Enigo::new(&Settings::default()).unwrap();
 
-    println!("1");
     let session = bluer::Session::new().await?;
     let adapter = session.default_adapter().await?;
     adapter.set_powered(true).await?;
@@ -52,7 +48,6 @@ async fn main() -> bluer::Result<()> {
     loop {
         println!("Waiting for connection on RFCOMM channel 0?");
         let req = hndl.next().await.expect("received no connect request");
-        println!("4");
 
         eprintln!("Accepted connection from {}", req.device());
         let mut stream = req.accept()?;
@@ -92,5 +87,5 @@ async fn main() -> bluer::Result<()> {
             //enigo.text("\r");
         }
     }
-    Ok(())
+    //Ok(())
 }

@@ -3,7 +3,7 @@
 A Quick and Dirty receiver app for Binary Eye's Forward scan via Bluetooth functionality Written in Rust.
 
 You will need to install `sudo apt install libdbus-1-dev pkg-config libxdo-dev`
-Currently only compatible with Linux runing Xorg.
+Currently only compatible with Linux runing Xorg. You may also need to install xdotool
 
 ```
 Usage: bin_eye_bt_receiver [OPTIONS]

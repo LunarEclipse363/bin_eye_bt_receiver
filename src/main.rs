@@ -6,7 +6,8 @@ use clap::Parser;
 use enigo::{Enigo, Keyboard, Settings};
 use env_logger;
 use futures::StreamExt;
-use log::{debug, error, info, trace, warn};
+use log::{debug, error, info, warn};
+use percent_encoding_rfc3986::{self as rfc3986, utf8_percent_encode, AsciiSet};
 use std::str;
 use tokio::io::AsyncReadExt;
 
@@ -20,6 +21,8 @@ struct Args {
     #[arg(short, long, default_value_t = false)]
     keyboard: bool,
 }
+
+const LOG_UNSAFE_CHARS: &'static AsciiSet = &rfc3986::CONTROLS.add(b'\\').add(b'"');
 
 #[tokio::main]
 async fn main() -> bluer::Result<()> {
@@ -75,9 +78,18 @@ async fn main() -> bluer::Result<()> {
             };
             let buf = &buf[..n];
 
-            let s = str::from_utf8(buf).unwrap_or_else(|e| panic!("Invalid UTF-8 sequence: {}", e));
+            let s = match str::from_utf8(buf) {
+                Ok(s) => s,
+                Err(e) => {
+                    warn!("Invalid UTF-8 sequence: {}", e);
+                    continue;
+                }
+            };
+            info!(
+                "Received String: \"{}\"",
+                utf8_percent_encode(s, LOG_UNSAFE_CHARS)
+            );
 
-            info!("Received String: \"{}\"", s);
             if args.keyboard {
                 enigo.text(s).unwrap_or_else(|e| error!("{}", e));
             }

@@ -17,7 +17,7 @@ struct Args {
     /// UUID of scaner
     #[arg(short, long, default_value = "8a8478c9-2ca8-404b-a0de-101f34ab71ae")]
     uuid: String,
-    /// Keyboard output
+    /// Enable keyboard output
     #[arg(short, long, default_value_t = false)]
     keyboard: bool,
 }

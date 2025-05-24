@@ -1,6 +1,6 @@
 # bin_eye_bt_receiver
 
-A Quick and Dirty receiver app for Binary Eye's Forward scan via Bluetooth functionality Written in Rust.
+A Quick and Dirty receiver app for [Binary Eye][binary_eye]'s Forward scan via Bluetooth functionality Written in Rust.
 
 You will need to install:
 ```bash
@@ -25,4 +25,5 @@ Options:
   -V, --version      Print version
 ```
 
+[binary_eye]: https://github.com/markusfisch/BinaryEye
 [virtual_keyboard_v1]: https://wayland.app/protocols/virtual-keyboard-unstable-v1#compositor-support
